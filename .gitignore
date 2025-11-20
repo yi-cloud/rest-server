@@ -41,6 +41,6 @@
 *.tmp
 
 # Log files
-logs/
-images/
-files/
+logs/**
+images/**
+files/**

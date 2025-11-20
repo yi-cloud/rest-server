@@ -1,1 +1,1 @@
-# rest-server
+# A lightweight restful server based on gin + gorm
