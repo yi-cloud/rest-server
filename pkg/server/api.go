@@ -134,3 +134,8 @@ func AuthMiddleware(s *ApiServer) {
 	middleware.InitRsaKey()
 	s.api.Use(middleware.AuthMiddleware())
 }
+
+func LicenseMiddleware(s *ApiServer) {
+	// only for all path registry license middleware
+	s.GetBaseGroup().Use(middleware.CheckLicense())
+}

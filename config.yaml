@@ -7,6 +7,13 @@ server:
   dsn: "www.baidu.com"
   sslcert: "D:\\workspaces\\go\\src\\github.com\\yi-cloud\\rest-server\\etc\\rest-server\\certs\\server.crt"
   sslkey: "D:\\workspaces\\go\\src\\github.com\\yi-cloud\\rest-server\\etc\\rest-server\\certs\\server.key"
+  license: |
+    eyJhbGciOiJSUzUxMiIsInR5cCI6IkpXVCJ9.eyJjbHVzdGVycyI6LTEsImVuZCI6IjIwMjUtMTEtMjE
+    gMTc6MTQ6NDYiLCJwcm9kdWN0IjoiQ29uc29sZVNlcnZlciIsInNuIjoiMTIzNDU2NzgiLCJzdGFydCI
+    6IjIwMjUtMTEtMjAgMTc6MTQ6NDYifQ.BbyjAnvDoD5tgpSVV0CRW5d3Rs_D2qvhFXWrjrj3l42w6dp6
+    RJdyHmW_gK-ES7mMPa2uOSLfYU_MQLNmGLaNjA4NZF3NvMuu9Qj0Jqi9uFhmEjQVRoA8Qe1NPL-o85oQ
+    _vjwSwwcJKZWuZ6zLhdaRHQGngfEZPuRfLaK8MsJotI
+
 
 logs:
   level: debug
