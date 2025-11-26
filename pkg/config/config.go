@@ -66,7 +66,7 @@ func initConfig() {
 	}
 	SysRoot = root
 	RunMode = viper.GetString("server.runmode")
-	TokenLifeTime = viper.GetInt64("auth.tokenlifetime")
+	TokenLifeTime = viper.GetInt64("auth.lifetime")
 	if TokenLifeTime <= 0 {
 		TokenLifeTime = 900
 	}

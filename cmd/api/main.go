@@ -10,10 +10,10 @@ func main() {
 	server.Init()
 	license.CheckLicense()
 	s := server.New().
+		SetMode(config.RunMode).
+		RegistryMiddlewares("auth", server.LicenseMiddleware, server.AuthMiddleware).
 		RegistryMiddlewares("logs", server.LogMiddleware).
 		RegistryMiddlewares("printBody", server.PrintBodyMiddleware).
-		RegistryMiddlewares("auth", server.LicenseMiddleware, server.AuthMiddleware).
-		SetMode(config.RunMode).
 		Start()
 	AddAllRoutes(s)
 	server.Run(s)

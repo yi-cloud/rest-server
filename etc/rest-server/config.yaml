@@ -47,6 +47,6 @@ database:
   local: True
   loglevel: error
 auth:
-  tokenlifetime: 864000
-  rsaprivatekey: "D:\\workspaces\\go\\src\\github.com\\yi-cloud\\rest-server\\etc\\rest-server\\auth\\pri.key"
-  rsapublickey: "D:\\workspaces\\go\\src\\github.com\\yi-cloud\\rest-server\\etc\\rest-server\\auth\\pub.key"
+  lifetime: 864000
+  privatekey: "D:\\workspaces\\go\\src\\github.com\\yi-cloud\\rest-server\\etc\\rest-server\\auth\\pri.key"
+  publickey: "D:\\workspaces\\go\\src\\github.com\\yi-cloud\\rest-server\\etc\\rest-server\\auth\\pub.key"

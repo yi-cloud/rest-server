@@ -41,7 +41,7 @@ func AuthMiddleware() gin.HandlerFunc {
 		}
 		tokenString := kv[1]
 		token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
-			return RsaPublicKey, nil
+			return PublicKey, nil
 		})
 
 		if err != nil {

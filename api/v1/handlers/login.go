@@ -37,7 +37,7 @@ func GenerateToken(uid uint, name, mobilePhone, role string) (string, string, er
 		expSecond = 1800
 	}
 	expire := now.Add(time.Duration(expSecond) * time.Second)
-	token := jwt.NewWithClaims(jwt.SigningMethodRS256, jwt.MapClaims{
+	token := jwt.NewWithClaims(middleware.SigningMethod, jwt.MapClaims{
 		"iss":   "rest-server",
 		"iat":   now.Unix(),
 		"exp":   expire.Unix(),
@@ -47,7 +47,7 @@ func GenerateToken(uid uint, name, mobilePhone, role string) (string, string, er
 		"phone": mobilePhone,
 	})
 
-	ret, err := token.SignedString(middleware.RsaPrivateKey)
+	ret, err := token.SignedString(middleware.PrivateKey)
 	return expire.Format(common.TimeFormat), ret, err
 }
 
@@ -86,6 +86,7 @@ func Login(c *gin.Context) {
 	expire, token, err := GenerateToken(uid, name, mobile, "admin")
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
 	}
 
 	c.JSON(http.StatusOK, map[string]any{"token": token, "expire": expire, "data": ret})

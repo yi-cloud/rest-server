@@ -47,6 +47,6 @@ database:
   local: True
   loglevel: error
 auth:
-  tokenlifetime: 864000
-  rsaprivatekey: "etc/rest-server/auth/pri.key"
-  rsapublickey: "etc/rest-server/auth/pub.key"
+  lifetime: 864000
+  privatekey: "etc/rest-server/auth/pri.key"
+  publickey: "etc/rest-server/auth/pub.key"

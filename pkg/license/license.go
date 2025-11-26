@@ -36,7 +36,7 @@ func decode(license string) (*LicenseRef, error) {
 	token, err := jwt.Parse(license, func(token *jwt.Token) (interface{}, error) {
 		// since we only use the one private key to sign the tokens,
 		// we also only use its public counter part to verify
-		return RsaPublicKey, nil
+		return PublicKey, nil
 	})
 
 	if err != nil {

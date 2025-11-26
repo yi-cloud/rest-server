@@ -1,7 +1,6 @@
 package middleware
 
 import (
-	"crypto/rsa"
 	"github.com/golang-jwt/jwt/v4"
 	"github.com/spf13/viper"
 	"os"
@@ -9,32 +8,43 @@ import (
 )
 
 var (
-	RsaPrivateKey *rsa.PrivateKey
-	RsaPublicKey  *rsa.PublicKey
+	PrivateKey    any
+	PublicKey     any
+	SigningMethod jwt.SigningMethod
 )
 
 func InitRsaKey() {
-	privateKey, err := jwt.ParseRSAPrivateKeyFromPEM(readKey("auth.rsaprivatekey"))
+	var err error
+	authType := viper.GetString("auth.type")
+	if authType == "ecdsa" {
+		PrivateKey, err = jwt.ParseECPrivateKeyFromPEM(readKey("auth.privatekey"))
+		SigningMethod = jwt.SigningMethodES256
+	} else {
+		PrivateKey, err = jwt.ParseRSAPrivateKeyFromPEM(readKey("auth.privatekey"))
+		SigningMethod = jwt.SigningMethodRS256
+	}
 	if err != nil {
 		panic(err)
 	}
-	RsaPrivateKey = privateKey
 
-	publicKey, err := jwt.ParseRSAPublicKeyFromPEM(readKey("auth.rsapublickey"))
+	if authType == "ecdsa" {
+		PublicKey, err = jwt.ParseECPublicKeyFromPEM(readKey("auth.publickey"))
+	} else {
+		PublicKey, err = jwt.ParseRSAPublicKeyFromPEM(readKey("auth.publickey"))
+	}
 	if err != nil {
 		panic(err)
 	}
-	RsaPublicKey = publicKey
 
 }
 
 func readKey(key string) []byte {
 	filename := viper.GetString(key)
 	if filename == "" {
-		if strings.HasSuffix(key, "rsaprivatekey") {
-			filename = "/etc/rest-server/auth/pri.key"
+		if strings.HasSuffix(key, "privatekey") {
+			filename = "/etc/rest-server/auth/private.pem"
 		} else {
-			filename = "/etc/rest-server/auth/pub.key"
+			filename = "/etc/rest-server/auth/public.pem"
 		}
 	}
 	// read the raw contents of the file
