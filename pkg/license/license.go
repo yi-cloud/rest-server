@@ -99,15 +99,15 @@ func CheckLicense() {
 	}
 
 	license = strings.Replace(license, "\n", "", -1)
+	ref, err := decode(license)
+	if err != nil {
+		logs.Logger.Warning("License is invalid.")
+		CheckResult = DecodeError
+		return
+	}
+
 	go func() {
 		for {
-			ref, err := decode(license)
-			if err != nil {
-				logs.Logger.Warning("License is invalid.")
-				CheckResult = DecodeError
-				return
-			}
-
 			valid(ref)
 			if CheckResult != Normal {
 				return

@@ -57,7 +57,7 @@ func (h *CommonHandler[T]) Delete(c *gin.Context) {
 	if err != nil {
 		return
 	}
-	GinResponseOk(c, h.Service.Delete(id))
+	GinResponseData(c, nil, h.Service.Delete(id))
 }
 
 func GetCommonInstance[T models.Common](db *gorm.DB) *CommonHandler[T] {
