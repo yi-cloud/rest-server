@@ -3,6 +3,7 @@ package config
 import (
 	"fmt"
 	"github.com/spf13/viper"
+	"github.com/yi-cloud/rest-server/pkg/middleware"
 	"path/filepath"
 	"strings"
 )
@@ -71,6 +72,7 @@ func initConfig() {
 		TokenLifeTime = 900
 	}
 
+	middleware.InitKey()
 	initScheme()
 	initDBType()
 	initLogsCfg()
