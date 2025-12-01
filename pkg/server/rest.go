@@ -6,6 +6,7 @@ import (
 	"github.com/yi-cloud/rest-server/common"
 	"github.com/yi-cloud/rest-server/pkg/config"
 	"github.com/yi-cloud/rest-server/pkg/db"
+	"github.com/yi-cloud/rest-server/pkg/license"
 	"github.com/yi-cloud/rest-server/pkg/logs"
 	"os"
 )
@@ -31,6 +32,7 @@ func InitOption() {
 	if h || help {
 		fmt.Printf("Current server version is %s, git version is %s, build date is %s\n",
 			Version, Commit, BuildDate)
+		fmt.Printf("ClusterID is %s\n", license.ClusterId)
 		flag.Usage()
 		os.Exit(0)
 	}

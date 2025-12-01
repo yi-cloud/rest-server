@@ -2,7 +2,6 @@ package middleware
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/golang-jwt/jwt/v4"
 	"github.com/yi-cloud/rest-server/pkg/logs"
 	"net/http"
 	"strings"
@@ -40,28 +39,8 @@ func AuthMiddleware() gin.HandlerFunc {
 			return
 		}
 		tokenString := kv[1]
-		token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
-			return PublicKey, nil
-		})
-
-		if err != nil {
-			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": err.Error()})
-			return
-		}
-
-		if !token.Valid {
-			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "Invalid auth token"})
-			return
-		}
-
-		claims := token.Claims.(jwt.MapClaims)
-		c.Set("userId", uint64(claims["uid"].(float64)))
-		c.Set("userName", claims["aud"].(string))
-		c.Set("mobilePhone", claims["phone"].(string))
-		c.Set("userRole", claims["role"].(string))
-
-		urole := c.GetString("userRole")
-		logs.Logger.Debugf("user role: %s", urole)
+		logs.Logger.Debugf("Authorization token: %s", tokenString)
+		c.Set("token", tokenString)
 		c.Next()
 	}
 }

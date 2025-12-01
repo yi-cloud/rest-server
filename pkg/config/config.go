@@ -17,6 +17,7 @@ var CommonLogs map[string]any
 var AccessLogs map[string]any
 var LogLevel = ""
 var TokenLifeTime int64
+var Regenerate = true
 
 type AppFilePathType uint
 
@@ -70,10 +71,15 @@ func initConfig() {
 	if TokenLifeTime <= 0 {
 		TokenLifeTime = 900
 	}
+	regenerate := viper.Get("auth.regenerate")
+	if regenerate != nil {
+		Regenerate = regenerate.(bool)
+	}
 
 	initScheme()
 	initDBType()
 	initLogsCfg()
+	initKeystoneOptions()
 }
 
 func LoadConfig(cfg string, t ...string) {

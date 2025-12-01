@@ -4,21 +4,20 @@ import (
 	"context"
 	"github.com/gin-gonic/gin"
 	"github.com/gophercloud/gophercloud/v2"
-	"github.com/gophercloud/gophercloud/v2/openstack/identity/v3/users"
+	"github.com/gophercloud/gophercloud/v2/openstack/identity/v3/roles"
 	"github.com/yi-cloud/rest-server/pkg/server"
 	"net/http"
 )
 
-func GetUsers(c *gin.Context) {
+func GetRoles(c *gin.Context) {
 	client, err := NewIdentityV3Client(c)
 	if err != nil {
 		GinResponseData(c, nil, err)
 		return
 	}
 
-	page, err := users.List(client, users.ListOpts{
+	page, err := roles.List(client, roles.ListOpts{
 		Name:    c.Query("name"),
-		Enabled: ParseBoolQuery(c, "enabled"),
 		Filters: c.QueryMap("filters"),
 	}).AllPages(context.TODO())
 
@@ -31,7 +30,7 @@ func GetUsers(c *gin.Context) {
 	GinResponseData(c, ret, err)
 }
 
-func GetUser(c *gin.Context) {
+func GetRole(c *gin.Context) {
 	client, err := NewIdentityV3Client(c)
 	if err != nil {
 		GinResponseData(c, nil, err)
@@ -39,13 +38,12 @@ func GetUser(c *gin.Context) {
 	}
 
 	var ret any
-
-	url := client.ServiceURL("users", c.Param("id"))
+	url := client.ServiceURL("roles", c.Param("id"))
 	resp, err := client.Get(context.TODO(), url, &ret, nil)
 	GinResponseData(c, ret, err, resp.StatusCode)
 }
 
-func postUserProcess(c *gin.Context, body any, parts ...string) {
+func postRoleProcess(c *gin.Context, body any, parts ...string) {
 	if err := c.ShouldBindJSON(&body); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
@@ -58,19 +56,19 @@ func postUserProcess(c *gin.Context, body any, parts ...string) {
 
 	var ret any
 	url := client.ServiceURL(parts...)
-	resp, err := client.Post(context.TODO(), url, map[string]any{"user": body}, &ret, &gophercloud.RequestOpts{
+	resp, err := client.Post(context.TODO(), url, map[string]any{"role": body}, &ret, &gophercloud.RequestOpts{
 		OkCodes: []int{201, 204},
 	})
 	GinResponseData(c, ret, err, resp.StatusCode)
 }
 
-func CreateUser(c *gin.Context) {
-	var body User
-	postUserProcess(c, body, "users")
+func CreateRole(c *gin.Context) {
+	var body Role
+	postRoleProcess(c, body, "roles")
 }
 
-func UpdateUser(c *gin.Context) {
-	var body UpdateUserOpts
+func UpdateRole(c *gin.Context) {
+	var body UpdateRoleOpts
 	if err := c.ShouldBindJSON(&body); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
@@ -82,34 +80,28 @@ func UpdateUser(c *gin.Context) {
 	}
 
 	var ret any
-	url := client.ServiceURL("users", c.Param("id"))
-	resp, err := client.Patch(context.TODO(), url, map[string]any{"user": body}, &ret, nil)
+	url := client.ServiceURL("roles", c.Param("id"))
+	resp, err := client.Patch(context.TODO(), url, map[string]any{"role": body}, &ret, nil)
 	GinResponseData(c, ret, err, resp.StatusCode)
 }
 
-func ChangeUserPassword(c *gin.Context) {
-	var body ChangePassword
-	postUserProcess(c, body, "users", c.Param("id"), "password")
-}
-
-func DeleteUser(c *gin.Context) {
+func DeleteRole(c *gin.Context) {
 	client, err := NewIdentityV3Client(c)
 	if err != nil {
 		GinResponseData(c, nil, err)
 		return
 	}
 
-	url := client.ServiceURL("users", c.Param("id"))
+	url := client.ServiceURL("roles", c.Param("id"))
 	resp, err := client.Delete(context.TODO(), url, nil)
 	GinResponseData(c, nil, err, resp.StatusCode)
 }
 
-func AddUserRoutes(s *server.ApiServer) {
-	g := s.AddGroup("/users", nil)
-	s.AddRoute(g, "GET", "", GetUsers)
-	s.AddRoute(g, "GET", "/:id", GetUser)
-	s.AddRoute(g, "POST", "", CreateUser)
-	s.AddRoute(g, "POST", "/:id/password", ChangeUserPassword)
-	s.AddRoute(g, "PATCH", "/:id", UpdateUser)
-	s.AddRoute(g, "DELETE", "/:id", DeleteUser)
+func AddRoleRoutes(s *server.ApiServer) {
+	g := s.AddGroup("/roles", nil)
+	s.AddRoute(g, "GET", "", GetRoles)
+	s.AddRoute(g, "GET", "/:id", GetRole)
+	s.AddRoute(g, "POST", "", CreateRole)
+	s.AddRoute(g, "PATCH", "/:id", UpdateRole)
+	s.AddRoute(g, "DELETE", "/:id", DeleteRole)
 }
