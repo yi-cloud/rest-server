@@ -3,6 +3,7 @@ package config
 import (
 	"fmt"
 	"github.com/spf13/viper"
+	"github.com/yi-cloud/rest-server/pkg/middleware"
 	"path/filepath"
 	"strings"
 )
@@ -74,6 +75,10 @@ func initConfig() {
 	regenerate := viper.Get("auth.regenerate")
 	if regenerate != nil {
 		Regenerate = regenerate.(bool)
+	}
+
+	if Regenerate {
+		middleware.InitKey()
 	}
 
 	initScheme()

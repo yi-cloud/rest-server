@@ -131,7 +131,6 @@ func LogMiddleware(s *ApiServer) {
 
 func AuthMiddleware(s *ApiServer) {
 	// only for api group registry auth middleware
-	middleware.InitKey()
 	s.api.Use(middleware.AuthMiddleware())
 }
 
