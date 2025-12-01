@@ -13,7 +13,7 @@ var (
 	SigningMethod jwt.SigningMethod
 )
 
-func InitRsaKey() {
+func InitKey() {
 	var err error
 	authType := viper.GetString("auth.type")
 	if authType == "ecdsa" {
