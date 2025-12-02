@@ -12,6 +12,7 @@ server:
     gMTA6NDM6MTkiLCJwcm9kdWN0IjoiQ29uc29sZVNlcnZlciIsInNuIjoiMTIzNDU2NzgiLCJzdGFydCI
     6IjIwMjUtMTEtMjYgMTA6NDM6MTkifQ.iKrdThEEBKpX9BkIsZ5iFzbXis4qwuxUBpj9Y_DBSD0xnvnG
     0dAeSRBxl57r983m4JKzj7Qg9St9dnczosDqDQ
+#  usedb: false
 
 logs:
   level: debug

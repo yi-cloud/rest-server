@@ -18,6 +18,7 @@ var CommonLogs map[string]any
 var AccessLogs map[string]any
 var LogLevel = ""
 var TokenLifeTime int64
+var UseDB = true
 
 type AppFilePathType uint
 
@@ -72,9 +73,16 @@ func initConfig() {
 		TokenLifeTime = 900
 	}
 
+	useDB := viper.Get("server.usedb")
+	if useDB != nil {
+		UseDB = useDB.(bool)
+	}
+
 	middleware.InitKey()
 	initScheme()
-	initDBType()
+	if UseDB {
+		initDBType()
+	}
 	initLogsCfg()
 }
 
