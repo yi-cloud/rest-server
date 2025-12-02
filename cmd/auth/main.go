@@ -16,5 +16,5 @@ func main() {
 		RegistryMiddlewares("printBody", server.PrintBodyMiddleware).
 		Start()
 	AddAllRoutes(s)
-	s.Run()
+	server.Run(s)
 }

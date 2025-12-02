@@ -19,6 +19,7 @@ var AccessLogs map[string]any
 var LogLevel = ""
 var TokenLifeTime int64
 var Regenerate = true
+var UseDB = true
 
 type AppFilePathType uint
 
@@ -77,12 +78,20 @@ func initConfig() {
 		Regenerate = regenerate.(bool)
 	}
 
+	useDB := viper.Get("server.usedb")
+	if useDB != nil {
+		UseDB = useDB.(bool)
+	}
+
 	if Regenerate {
 		middleware.InitKey()
 	}
 
+	if UseDB {
+		initDBType()
+	}
+
 	initScheme()
-	initDBType()
 	initLogsCfg()
 	initKeystoneOptions()
 }

@@ -2,6 +2,7 @@ server:
   ip: 0.0.0.0
   port: 8090
   runmode: "debug"
+  usedb: false
   root: ""
   scheme: "http"
   sslcert: "D:\\workspaces\\go\\src\\github.com\\yi-cloud\\rest-server\\etc\\rest-server\\certs\\server.crt"

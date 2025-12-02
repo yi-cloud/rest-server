@@ -65,7 +65,9 @@ func Init() {
 }
 
 func Run(s *ApiServer) {
-	db.DBInstance(db.GetDsnFromConfig(config.DBType)).Open(config.DBType).AutoMigrateAll()
+	if config.UseDB {
+		db.DBInstance(db.GetDsnFromConfig(config.DBType)).Open(config.DBType).AutoMigrateAll()
+	}
 	common.AddValidatorForServer()
 	s.Run()
 }
