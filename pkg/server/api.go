@@ -62,7 +62,12 @@ func (s *ApiServer) RegistryMiddlewares(name string, handlers ...MiddlewareFunc)
 
 func (s *ApiServer) Run() {
 	var err error
-	domain := viper.GetString("server.ip") + ":" + viper.GetString("server.port")
+	domain := viper.GetString("server.ip") + ":"
+	port := viper.GetString("server.port")
+	if port == "" {
+		port = "80"
+	}
+	domain += port
 	logs.Logger.Infof("console server started: %s", domain)
 	if config.IsHttpScheme {
 		err = s.r.Run(domain)

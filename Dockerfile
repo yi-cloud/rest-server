@@ -1,4 +1,4 @@
-FROM ubuntu:xenial
+FROM ubuntu:22.04
 
 COPY ./rest-server /usr/local/bin/
 COPY ./etc/rest-server /etc/rest-server
@@ -12,7 +12,8 @@ RUN apt-get update \
 	&& locale-gen zh_CN.UTF-8 \
 	&& ln -snf /usr/share/zoneinfo/$TZ /etc/localtime \
 	&& echo $TZ > /etc/timezone \
-	&& chmod +x /usr/local/bin/rest-server
+	&& chmod +x /usr/local/bin/rest-server \
+    && mv /etc/rest-server/config.linux.yaml /etc/rest-server/config.yaml
 
 WORKDIR /usr/local/bin/
 

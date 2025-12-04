@@ -25,7 +25,7 @@ func AuthMiddleware() gin.HandlerFunc {
 		if len(authString) == 0 {
 			cookies := c.Request.Cookies()
 			for _, cookie := range cookies {
-				logs.Logger.Debug("cookies: %v", cookie)
+				logs.Logger.Debugf("cookies: %v", cookie)
 				if strings.Contains(cookie.Name, "_access_token") {
 					authString = "Bearer " + cookie.Value
 					break

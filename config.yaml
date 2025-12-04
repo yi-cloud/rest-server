@@ -8,10 +8,9 @@ server:
   sslcert: "D:\\workspaces\\go\\src\\github.com\\yi-cloud\\rest-server\\etc\\rest-server\\certs\\server.crt"
   sslkey: "D:\\workspaces\\go\\src\\github.com\\yi-cloud\\rest-server\\etc\\rest-server\\certs\\server.key"
   license: |
-    eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbHVzdGVycyI6LTEsImVuZCI6IjIwMjUtMTItMjY
-    gMTA6NDM6MTkiLCJwcm9kdWN0IjoiQ29uc29sZVNlcnZlciIsInNuIjoiMTIzNDU2NzgiLCJzdGFydCI
-    6IjIwMjUtMTEtMjYgMTA6NDM6MTkifQ.iKrdThEEBKpX9BkIsZ5iFzbXis4qwuxUBpj9Y_DBSD0xnvnG
-    0dAeSRBxl57r983m4JKzj7Qg9St9dnczosDqDQ
+    eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbHVzdGVycyI6LTEsImVuZCI6IjIwMjYtMDEtMDMgMTA6Mjg6MDYiLCJwcm9kdWN0IjoiQ29uc29sZVNlcnZlciIsInNuIjoiMDAwMDAwMDAtMDAwMC
+    0wMDAwLTAwMDAtMDAwMDAwMDAwMDAwIiwic3RhcnQiOiIyMDI1LTEyLTA0IDEwOjI4OjA2In0.nlKFfK-hCpd7dxgF8sZVMpnTqq6TXSWGXwmZtz6gs3s4DJqHANGJ5skiTg_evJXgyc53KpdbR0tYkQlFD
+    wPZKg
 #  usedb: false
 
 logs:

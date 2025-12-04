@@ -2,6 +2,13 @@ server:
   ip: 0.0.0.0
   port: 8080
   runmode: release
+  scheme: "https"
+  sslcert: "/etc/rest-server/certs/server.crt"
+  sslkey: "/etc/rest-server/certs/server.key"
+  license: |
+    eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbHVzdGVycyI6LTEsImVuZCI6IjIwMjYtMDEtMDMgMTA6Mjg6MDYiLCJwcm9kdWN0IjoiQ29uc29sZVNlcnZlciIsInNuIjoiMDAwMDAwMDAtMDAwMC
+    0wMDAwLTAwMDAtMDAwMDAwMDAwMDAwIiwic3RhcnQiOiIyMDI1LTEyLTA0IDEwOjI4OjA2In0.nlKFfK-hCpd7dxgF8sZVMpnTqq6TXSWGXwmZtz6gs3s4DJqHANGJ5skiTg_evJXgyc53KpdbR0tYkQlFD
+    wPZKg
 logs:
   level: debug
   common:
@@ -47,6 +54,7 @@ database:
   local: True
   loglevel: error
 auth:
-  lifetime: 864000
-  privatekey: "etc/rest-server/auth/pri.key"
-  publickey: "etc/rest-server/auth/pub.key"
+  type: ecdsa
+  lifetime: 3600
+  privatekey: "/etc/rest-server/auth/private.pem"
+  publickey: "/etc/rest-server/auth/public.pem"

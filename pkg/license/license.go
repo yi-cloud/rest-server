@@ -63,7 +63,7 @@ func valid(ref *LicenseRef) {
 	}
 
 	if ref.Product != Product {
-		logs.Logger.Warning("The license is for %s, not valid for %s.", ref.Product, Product)
+		logs.Logger.Warningf("The license is for %s, not valid for %s.", ref.Product, Product)
 		CheckResult = ProductException
 		return
 	}

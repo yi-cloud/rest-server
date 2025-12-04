@@ -33,10 +33,11 @@ func InitOption() {
 		fmt.Printf("Current server version is %s, git version is %s, build date is %s\n",
 			Version, Commit, BuildDate)
 		if license.ClusterId != "" {
-			fmt.Printf("ClusterID is %s\n", license.ClusterId)
+			fmt.Printf("ClusterID is %s", license.ClusterId)
 		} else {
-			fmt.Printf("ClusterID is none\n")
+			fmt.Printf("ClusterID is none")
 		}
+		fmt.Printf(", Product is %s\n", license.Product)
 		fmt.Printf("\n")
 		flag.Usage()
 		fmt.Printf("\n")
