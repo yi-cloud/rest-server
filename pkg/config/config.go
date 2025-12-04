@@ -12,8 +12,8 @@ var RunMode string
 var SysRoot string
 var IsHttpScheme = true
 var DBType = "mysql"
-var HttpsCrt = "/etc/rest-server/certs/server.crt"
-var HttpsKey = "/etc/rest-server/certs/server.key"
+var HttpsCrt = "/etc/auth-server/certs/server.crt"
+var HttpsKey = "/etc/auth-server/certs/server.key"
 var CommonLogs map[string]any
 var AccessLogs map[string]any
 var LogLevel = ""
@@ -102,8 +102,8 @@ func LoadConfig(cfg string, t ...string) {
 
 	if path == "" {
 		viper.AddConfigPath(".")
-		viper.AddConfigPath("etc/rest-server/")
-		viper.AddConfigPath("/etc/rest-server/")
+		viper.AddConfigPath("etc/auth-server/")
+		viper.AddConfigPath("/etc/auth-server/")
 	} else {
 		viper.AddConfigPath(path)
 	}

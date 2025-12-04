@@ -1,7 +1,7 @@
-FROM ubuntu:xenial
+FROM ubuntu:22.04
 
-COPY ./rest-server /usr/local/bin/
-COPY ./etc/rest-server /etc/rest-server
+COPY ./auth-server /usr/local/bin/
+COPY ./etc/rest-server /etc/auth-server
 
 ENV TZ=Asia/Shanghai
 ENV LANG=zh_CN
@@ -12,8 +12,9 @@ RUN apt-get update \
 	&& locale-gen zh_CN.UTF-8 \
 	&& ln -snf /usr/share/zoneinfo/$TZ /etc/localtime \
 	&& echo $TZ > /etc/timezone \
-	&& chmod +x /usr/local/bin/rest-server
+	&& chmod +x /usr/local/bin/auth-server \
+    && mv /etc/auth-server/config.linux.yaml /etc/auth-server/config.yaml
 
 WORKDIR /usr/local/bin/
 
-CMD ["rest-server"]
+CMD ["auth-server"]

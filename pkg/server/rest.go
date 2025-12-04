@@ -24,7 +24,7 @@ var (
 )
 
 func InitOption() {
-	flag.StringVar(&cfg, "config", "/etc/rest-server/config.yaml", "app config file")
+	flag.StringVar(&cfg, "config", "/etc/auth-server/config.yaml", "app config file")
 	flag.BoolVar(&help, "help", false, "this help command")
 	flag.BoolVar(&h, "h", false, "this help command")
 
@@ -33,10 +33,11 @@ func InitOption() {
 		fmt.Printf("Current server version is %s, git version is %s, build date is %s\n",
 			Version, Commit, BuildDate)
 		if license.ClusterId != "" {
-			fmt.Printf("ClusterID is %s\n", license.ClusterId)
+			fmt.Printf("ClusterID is %s", license.ClusterId)
 		} else {
-			fmt.Printf("ClusterID is none\n")
+			fmt.Printf("ClusterID is none")
 		}
+		fmt.Printf(", Product is %s\n", license.Product)
 		fmt.Printf("\n")
 		flag.Usage()
 		fmt.Printf("\n")

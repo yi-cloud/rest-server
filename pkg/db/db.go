@@ -147,7 +147,7 @@ func GetDsnBaseInfo() (string, string, string, string, int, string) {
 	password := viper.GetString("database.password")
 	db := viper.GetString("database.db")
 	if db == "" {
-		db = "rest-server"
+		db = "auth-server"
 	}
 
 	host := viper.GetString("database.host")
@@ -214,13 +214,13 @@ func GetDsnForMysql() string {
 	return dsn
 }
 
-// dsn := "rest-server.db"
+// dsn := "auth-server.db"
 // only use for test
 
 func GetDsnForSqlite() string {
 	db := viper.GetString("database.db")
 	if db == "" {
-		db = "rest-server.db"
+		db = "auth-server.db"
 	}
 
 	cached := viper.GetString("database.cached")

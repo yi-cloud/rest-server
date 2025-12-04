@@ -15,22 +15,22 @@ var (
 
 func InitKey() {
 	var err error
-	authType := viper.GetString("auth.type")
-	if authType == "ecdsa" {
-		PrivateKey, err = jwt.ParseECPrivateKeyFromPEM(readKey("auth.privatekey"))
-		SigningMethod = jwt.SigningMethodES256
-	} else {
+	isRsaAuth := viper.GetString("auth.type") == "rsa"
+	if isRsaAuth {
 		PrivateKey, err = jwt.ParseRSAPrivateKeyFromPEM(readKey("auth.privatekey"))
 		SigningMethod = jwt.SigningMethodRS256
+	} else {
+		PrivateKey, err = jwt.ParseECPrivateKeyFromPEM(readKey("auth.privatekey"))
+		SigningMethod = jwt.SigningMethodES256
 	}
 	if err != nil {
 		panic(err)
 	}
 
-	if authType == "ecdsa" {
-		PublicKey, err = jwt.ParseECPublicKeyFromPEM(readKey("auth.publickey"))
-	} else {
+	if isRsaAuth {
 		PublicKey, err = jwt.ParseRSAPublicKeyFromPEM(readKey("auth.publickey"))
+	} else {
+		PublicKey, err = jwt.ParseECPublicKeyFromPEM(readKey("auth.publickey"))
 	}
 	if err != nil {
 		panic(err)
@@ -42,9 +42,9 @@ func readKey(key string) []byte {
 	filename := viper.GetString(key)
 	if filename == "" {
 		if strings.HasSuffix(key, "privatekey") {
-			filename = "/etc/rest-server/auth/private.pem"
+			filename = "/etc/auth-server/auth/private.pem"
 		} else {
-			filename = "/etc/rest-server/auth/public.pem"
+			filename = "/etc/auth-server/auth/public.pem"
 		}
 	}
 	// read the raw contents of the file

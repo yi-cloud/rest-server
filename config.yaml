@@ -2,16 +2,17 @@ server:
   ip: 0.0.0.0
   port: 8090
   runmode: "debug"
+  usedb: false
   root: ""
-  scheme: "https"
-  dsn: "www.baidu.com"
+  scheme: "http"
   sslcert: "D:\\workspaces\\go\\src\\github.com\\yi-cloud\\rest-server\\etc\\rest-server\\certs\\server.crt"
   sslkey: "D:\\workspaces\\go\\src\\github.com\\yi-cloud\\rest-server\\etc\\rest-server\\certs\\server.key"
   license: |
-    eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbHVzdGVycyI6LTEsImVuZCI6IjIwMjUtMTItMjY
-    gMTA6NDM6MTkiLCJwcm9kdWN0IjoiQ29uc29sZVNlcnZlciIsInNuIjoiMTIzNDU2NzgiLCJzdGFydCI
-    6IjIwMjUtMTEtMjYgMTA6NDM6MTkifQ.iKrdThEEBKpX9BkIsZ5iFzbXis4qwuxUBpj9Y_DBSD0xnvnG
-    0dAeSRBxl57r983m4JKzj7Qg9St9dnczosDqDQ
+    eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbHVzdGVycyI6LTEsImVuZCI6IjIwMjYtMDEtMDM
+    gMTA6MTI6NTkiLCJwcm9kdWN0IjoiYXV0aCIsInNuIjoiMDAwMDAwMDAtMDAwMC0wMDAwLTAwMDAtMDA
+    wMDAwMDAwMDAwIiwic3RhcnQiOiIyMDI1LTEyLTA0IDEwOjEyOjU5In0.n7mLsFezfKWCP6M-ms4lw1h
+    4qEpa6Ev-nilpZ9nhUnA2Ldn35wT-ajrj4mBDeNyfJNSIM4FGAQrQKEbh475FJw
+
 
 logs:
   level: debug
@@ -20,7 +21,7 @@ logs:
     file: "rest-server.log"
     errorfile: "error.log"
     backups:
-    - maxsize: 500
+    - maxsize: 1
       maxbackups: 30
       maxage: 7
       localtime: true
@@ -50,32 +51,16 @@ logs:
         compress: true
         queuesize: 512
 
-database:
-  type: mysql
-  host: localhost
-  port: 3306
-  user: root
-  password: 123
-  db: rest-server
-  charset: utf8mb4
-  loglevel: info
-
-  # only mysql
-  parsetime: True
-  local: True
-
-  # only postgres
-  sslmode: verify-ca
-  timezone: Asia/Shanghai
-  sslrootcert: /etc/ssl/certs/ca-certificates.crt
-  sslcert: /path/to/client.crt
-  sslkey: /path/to/client.key
-
-  # only sqlite
-  cached: shared
-
 auth:
   type: ecdsa
-  lifetime: 864000
+  regenerate: false
   privatekey: "D:\\workspaces\\go\\src\\github.com\\yi-cloud\\rest-server\\etc\\rest-server\\auth\\private.pem"
   publickey: "D:\\workspaces\\go\\src\\github.com\\yi-cloud\\rest-server\\etc\\rest-server\\auth\\public.pem"
+
+keystone:
+  endpoint: "http://192.168.231.108:5000/v3"
+  domainname: "Default"
+#  projectname: "admin"
+  projectid: 8fccfb24481440088ac89091c876bae5
+  region: RegionOne
+
